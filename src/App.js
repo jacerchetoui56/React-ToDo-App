@@ -15,7 +15,7 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    setTasks(prev => {
+    form && setTasks(prev => {
       return [
         ...prev,
         {
