@@ -11,6 +11,8 @@ function App() {
     ])
   const [form, setForm] = useState('')
 
+  //this state is to toggle the add Task button
+  const [button, setButton] = useState(true)
 
 
   function handleSubmit(e) {
@@ -24,6 +26,7 @@ function App() {
         }
       ]
     })
+    setButton(true)
     setForm('')
   }
 
@@ -39,7 +42,7 @@ function App() {
   }
 
   function modifyTask(index) {
-    console.log("modified")
+    setButton(false)
     setForm(tasks[index].name)
     deleteTask(index)
   }
@@ -55,7 +58,7 @@ function App() {
           value={form}
           onChange={(e) => setForm(e.target.value)}
         />
-        <button >Add Task</button>
+        <button >{button ? 'Add Task' : 'Edit'}</button>
       </form>
 
       <div className="tasks">
