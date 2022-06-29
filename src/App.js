@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Task from './Task'
 import './styles.css'
 function App() {
 
   const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem('tasks')) ||
     [{
       name: 'this is the first task',
       isDone: false
@@ -13,7 +14,6 @@ function App() {
 
   //this state is to toggle the add Task button
   const [button, setButton] = useState(true)
-
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -26,9 +26,19 @@ function App() {
         }
       ]
     })
-    setButton(true)
     setForm('')
+    setButton(true)
   }
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('tasks')).length > tasks.length) {
+      console.log('task deleted')
+    }
+    else {
+      console.log('task added');
+    }
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   function taskDone(index) {
     const newTasks = [...tasks]
@@ -46,6 +56,9 @@ function App() {
     setForm(tasks[index].name)
     deleteTask(index)
   }
+  function clearAllTasks() {
+    setTasks([])
+  }
 
   return (
     <div className='container'>
@@ -60,7 +73,6 @@ function App() {
         />
         <button >{button ? 'Add Task' : 'Edit'}</button>
       </form>
-
       <div className="tasks">
         {tasks.map((task, index) => {
           return <Task
@@ -70,6 +82,9 @@ function App() {
             handleModify={() => modifyTask(index)}
           />
         })}
+      </div>
+      <div className="clear-btn">
+        {tasks.length > 0 && <button onClick={clearAllTasks} >Clear All</button>}
       </div>
     </div>
   );
