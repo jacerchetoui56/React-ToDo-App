@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Task from './Task'
 import './styles.css'
+
 function App() {
 
   const [tasks, setTasks] = useState(
@@ -31,12 +32,6 @@ function App() {
   }
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('tasks')).length > tasks.length) {
-      console.log('task deleted')
-    }
-    else {
-      console.log('task added');
-    }
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
 
@@ -76,7 +71,7 @@ function App() {
       <div className="tasks">
         {tasks.map((task, index) => {
           return <Task
-            infos={task}
+            {...task}
             handleDone={() => taskDone(index)}
             handleDelete={() => deleteTask(index)}
             handleModify={() => modifyTask(index)}
