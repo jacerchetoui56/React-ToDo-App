@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Task from './Task'
 import './styles.css'
 
@@ -12,6 +12,7 @@ function App() {
     }
     ])
   const [form, setForm] = useState('')
+  const input = useRef()
 
   //this state is to toggle the add Task button
   const [button, setButton] = useState(true)
@@ -47,6 +48,7 @@ function App() {
   }
 
   function modifyTask(index) {
+    input.current.focus()
     setButton(false)
     setForm(tasks[index].name)
     deleteTask(index)
@@ -60,6 +62,7 @@ function App() {
       <div className="todos">Todos ({tasks.filter(task => !task.isDone).length})</div>
       <form className="form" onSubmit={handleSubmit} >
         <input
+          ref={input}
           type="text"
           placeholder="Enter a task"
           name="form"
