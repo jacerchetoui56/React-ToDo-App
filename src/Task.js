@@ -1,25 +1,25 @@
 import React from 'react'
 
-export default function Task(props) {
+export default function Task({ name, isDone, handleDone, handleDelete, handleModify }) {
 
-    const className = props.isDone ? 'task done' : 'task'
+    const className = isDone ? 'task done' : 'task'
     return (
         <div className={className} >
-            <span>{props.name}</span>
+            <span>{name}</span>
             <div >
                 <button
-                    onClick={props.handleModify}
-                    style={{ display: props.isDone ? 'none' : 'block' }}
+                    onClick={handleModify}
+                    style={{ display: isDone ? 'none' : 'block' }}
                 >
                     <i class="modify-btn fa-solid fa-pen"></i>
                 </button>
                 <button
-                    onClick={props.handleDone}
-                    style={{ display: props.isDone ? 'none' : 'block' }}
+                    onClick={handleDone}
+                    style={{ display: isDone ? 'none' : 'block' }}
                 >
                     <i class="fa-solid fa-check done-btn"></i>
                 </button>
-                <button onClick={props.handleDelete} >
+                <button onClick={handleDelete} >
                     <i class="fa-solid fa-trash delete-btn"></i>
                 </button>
             </div>

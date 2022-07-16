@@ -24,7 +24,7 @@ function App() {
         ...prev,
         {
           name: form,
-          isDOne: false
+          isDone: false
         }
       ]
     })
